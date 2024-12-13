@@ -16,7 +16,7 @@ class _TodoDetailpageState extends State<TodoDetailpage> {
           child: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("asset/cute_board.png"),
+                image: AssetImage("assets/cute_board.png"),
                 fit: BoxFit.fill,
               ),
             ),
