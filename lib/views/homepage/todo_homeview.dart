@@ -50,7 +50,7 @@ class _TodoHomeviewState extends State<TodoHomeview> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Image.asset(
-                "asset/bear.png",
+                "assets/bear.png",
                 fit: BoxFit.fitWidth,
                 // height: MediaQuery.of(context).size.height * .4,
               ),
