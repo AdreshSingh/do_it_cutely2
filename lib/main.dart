@@ -1,6 +1,7 @@
 import 'package:do_it_cutely2/data/model/isar_todo.dart';
 import 'package:do_it_cutely2/data/repository/isar_repo.dart';
 import 'package:do_it_cutely2/domain/repository/todo_repo.dart';
+import 'package:do_it_cutely2/views/deletepage/todo_deleteview.dart';
 import 'package:do_it_cutely2/views/todo_detailpage.dart';
 import 'package:do_it_cutely2/views/formpage/todo_formpage.dart';
 import 'package:do_it_cutely2/views/homepage/todo_homepage.dart';
@@ -51,9 +52,14 @@ class _MyAppState extends State<MyApp> {
       label: "Home",
     ),
     const BottomNavigationBarItem(
+      icon: Icon(Icons.cleaning_services_outlined),
+      activeIcon: Icon(Icons.cleaning_services),
+      label: "Clean Up",
+    ),
+    const BottomNavigationBarItem(
       icon: Icon(Icons.collections_bookmark_outlined),
       activeIcon: Icon(Icons.collections_bookmark),
-      label: "Details",
+      label: "Help?",
     ),
   ];
 
@@ -63,7 +69,8 @@ class _MyAppState extends State<MyApp> {
     final List<Widget> views = [
       TodoHomepage(todoRepo: todoRepo),
       TodoFormpage(todoRepo: todoRepo),
-      const TodoDetailpage(),
+      TodoDeleteview(todoRepo: todoRepo),
+      const TodoDetailpage(todo: null),
     ];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -80,7 +87,7 @@ class _MyAppState extends State<MyApp> {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: selectedIndex,
             items: items,
-            backgroundColor: const Color.fromARGB(255, 54, 52, 54),
+            backgroundColor: const Color.fromARGB(255, 40, 38, 40),
             showUnselectedLabels: false,
             selectedItemColor: Colors.red[100],
             unselectedItemColor: Colors.red[200],
