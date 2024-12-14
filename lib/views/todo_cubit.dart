@@ -60,5 +60,8 @@ class TodoCubit extends Cubit<List<Todo>> {
 
     // update the repository
     await todoRepo.updateTodo(updatedTodo);
+
+    // forgot to reload the new state
+    loadTodos();
   }
 }
