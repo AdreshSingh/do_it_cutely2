@@ -72,6 +72,8 @@ class _TodoFormviewState extends State<TodoFormview> {
             // text
             TextField(
               controller: text,
+              minLines: 4,
+              maxLines: 8,
               decoration: InputDecoration(
                 filled: true,
                 hintText: "now define it here",
