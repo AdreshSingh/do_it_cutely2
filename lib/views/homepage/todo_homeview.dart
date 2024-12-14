@@ -1,6 +1,6 @@
 import 'package:do_it_cutely2/domain/model/todo.dart';
 import 'package:do_it_cutely2/views/todo_cubit.dart';
-import 'package:flutter/foundation.dart';
+import 'package:do_it_cutely2/views/todo_detailpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,10 +21,20 @@ class _TodoHomeviewState extends State<TodoHomeview> {
     Todo(id: 6, title: "second", text: "we are at 2nd step", isDone: true),
   ];
 
+  void gotoScreen(Todo todo) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => (TodoDetailpage(
+          todo: todo,
+        )),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-
     // emitting default stored list to create UI
     context.read<TodoCubit>().loadTodos();
   }
@@ -60,13 +70,16 @@ class _TodoHomeviewState extends State<TodoHomeview> {
           const SizedBox(
             height: 20,
           ),
-          TextButton(
-              onPressed: () async {
-                if (kDebugMode) {
-                  print((await todoCubit.todoRepo.getTodos()).length);
-                }
-              },
-              child: const Text("check")),
+
+          // only needed to check if items are present or not
+          // TextButton(
+          //     onPressed: () async {
+          //       if (kDebugMode) {
+          //         print((await todoCubit.todoRepo.getTodos()).length);
+          //       }
+          //     },
+          //     child: const Text("check")),
+
           // To To-do
           Text(
             "To To-do",
@@ -93,7 +106,11 @@ class _TodoHomeviewState extends State<TodoHomeview> {
                   Todo data = todoIncomplete[index];
 
                   return GestureDetector(
+                    onTap: () => (gotoScreen(data)),
                     onLongPress: () {
+                      todoCubit.toggleCompletion(data);
+                    },
+                    onDoubleTap: () {
                       todoCubit.toggleCompletion(data);
                     },
                     child: TodoWidget(
@@ -136,9 +153,12 @@ class _TodoHomeviewState extends State<TodoHomeview> {
                 itemBuilder: (context, index) {
                   Todo data = todoDone[index];
 
-                  return TodoWidget(
-                    title: data.title,
-                    text: data.text,
+                  return GestureDetector(
+                    onTap: () => (gotoScreen(data)),
+                    child: TodoWidget(
+                      title: data.title,
+                      text: data.text,
+                    ),
                   );
                 },
                 itemCount: todoDone.length,
@@ -186,9 +206,10 @@ class TodoWidget extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                  color: Colors.red[100],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14),
+                color: Colors.red[100],
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
             ),
           ],
         ),
